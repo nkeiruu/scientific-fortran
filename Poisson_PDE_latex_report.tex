@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\title{noo}
+\author{nkeiruubadike }
+\date{April 2021}
+
+\begin{document}
+\section{Theory}
+The purpose of this program (entitled $nkeiru\_ubadike\_hw8.f08$) is to solve the Poisson equation given by
+
+\begin{equation}
+  \frac{\partial^2 U}{\partial x^2}+\frac{\partial^2 U}{\partial y^2} =4\pi q
+  \label{poiss}
+\end{equation}
+
+Where U is the potential and q is the charge.
+
+Equation \ref{poiss} is solved numerically using the finite difference method for a grounded metal box. Thus the boundary conditions are U = 0 on the four edges of the box. This method produces a discretized approximation of equation \ref{poiss} given by
+\begin{equation}\label{discr}
+  \frac{U_{i+1, j} + U_{i-1, j} + U_{i,j+1}U_{i,j-1} -4U_{i,j}}{h^2} = 4\pi q_{i,j}
+\end{equation}
+
+Equation \ref{discr} is solved for $U_{i,j}$ and an initial guess $U_{i,j}^0$ is used to obtain a new guess $U_{i,j}$
+\begin{equation}
+  U_{i,j}^1 = \frac{U_{i + 1,j}^0 + U_{i - 1,j}^0 + U_{i,j+ 1}^0 + U_{i,j-1}^0 - 4\pi h^2 q_{i,j}}{4}   
+\end{equation}
+This process is repeated until the solution converges. This method is known as the relaxation method. The convergence criteria is $max(\lvert(U_{i,j}^0 - U_{i,j}^1\rvert)<  accuracy $ 
+\section{Input Parameters}
+
+The number of cells in the i and j direction is denoted as $\mathbf{n_i}$ and $\mathbf{n_j}$ respectively. In this case, $n_i = n_j$ = 20 Each cell is a square with $\mathbf{h__{size}}$ = 1.0. The charge density $\mathbf{q__den}$, is a gradient of electric charge that is increasing the in the positive i direction and is constant in the j direction.  The accuracy = 1.0 $\times 10 ^-5$ determines when our solution converges.
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width = 0.50\textwidth]{plot_density.png}
+ % \caption{Charge Density}
+  \label{q_density} Charge density plot
+\end{center}
+\end{figure}
+
+Our charge density is pictured in figure \ref{q_density}.
+
+\section{Results}
+
+%he results are pictured in figure \ref{potential_plot}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width = 0.5\textwidth]{plot_poisson.png}
+  \caption{\label{potential_plot} Potential density plot}
+\end{center}
+\end{figure}
+
+The greatest region of potential is negative and is centered to the left of the box. The boundary conditions, namely U = 0 on all four edges, are clearly pictured in Figure \ref{potential_plot}.
+
+
+\end{document}
